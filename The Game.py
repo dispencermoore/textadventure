@@ -4,13 +4,14 @@ print ("It is very simple. For every turn, you will input a command. In case you
 
 roomsLayout = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
 charInventory = []
+roomLoot = []
 
 startingRoomNumber = random.randint(0,24)
 roomsLayout.remove(startingRoomNumber)
 roomsLayout.insert(startingRoomNumber, 'startingRoom')
 currentRoomNumber = startingRoomNumber
-print (startingRoomNumber)
-print (roomsLayout)
+"""print (startingRoomNumber)
+print (roomsLayout)"""
 
 dangerRating = 0
 fightTrue = 0
@@ -19,7 +20,6 @@ healthMods = 0
 weaponDamage = 0
 monstersKilled = 0
 characterBaseAttack = 2
-characterAttack = characterBaseAttack + weaponDamage
 currentHealth = 30 - damageTaken + healthMods
 	
 class Item():
@@ -28,7 +28,7 @@ class Item():
 		self.description = description
 		self.value = value
 		self.health = health
-"""weaponDamage = self.damage"""
+		self.damage = damage
 
 class Room():
 	def __init__(self, name, description, danger, loot):
@@ -54,23 +54,40 @@ class Monster():
 
 registry = {}
 	
-spookyCorridor = Room('Spooky Corridor', 'It is a corridor. And it is spooky.', 6, 2)
+"""spookyCorridor = Room('Spooky Corridor', 'It is a corridor. And it is spooky.', 6, 2)"""
 
-auaojaj = Monster('An Unholy Abomination Of Jasper And Journey, or AUAOJAJ.', 'The monsters name says it all tbh.', 10, 3)
+"""Below are all the possible room descriptions"""
+
+a = "It's a corridor. And it's spooky"
+b = "Big room. Suspiciously big."
+c = "Stereotypical room. Offensively stereotypical."
+d = "Looks like a chapel room. Except by people who worship... not Jesus."
+e = "There's like slime everywhere. Even in the air."
+f = "59893315216"
+g = "Dark, isolated, depressing, small, claustrophobic. Has a kitten picture."
+h = "Imagine AUAOJAJ's room."
+I = "There's a beanbag in the corner. You know the one."
+j = "Very colorful room. And I mean language wise..."
+
+roomDescriptions = [a, b, c, d, e, f, g, h, I, j]
+
+auaojaj = Monster('AUAOJAJ.', 'The monsters name says it all tbh.', 10, 3)
 
 medusa = Monster('SSSSSSSamantha.', 'Snake lady with many other snakes.', 20, 5)
 
 bob = Monster('Bob.', 'Bob.', 16, 4)
 
-lizard = Monster('Elizabeth.', 'Think Mark Zuckerberg with, except he is a lizard. (wait...)', 30, 2)
+lizard = Monster('Elizabeth.', 'Think Mark Zuckerberg, except he is a lizard. (wait...)', 30, 2)
 
 startingRoom = Room('Starting Room', 'How did you even get here.', 0, 5)
 	
-registry["knife"] = Item('Knife', 'Cut of metal. Hardly a knife.', 5, 0, 3)
+registry["knife"] = Item('knife', 'Cut of metal. Hardly a knife.', 5, 0, 3)
 
-bagel = Item('Bagel', 'Round piece of bread. No cream cheese.', 3, 5, 0)
+registry["bagel"] = Item('bagel', 'Round piece of bread. No cream cheese.', 3, 5, 0)
 
-hammer = Item('Hammer', 'Very Fancy. Very Power. Very paper mache.', 4, 0, 4)
+registry["hammer"] = Item('hammer', 'Very Fancy. Very Power. Very paper mache.', 4, 0, 4)
+
+registry["amulet"] = Item('amulet', 'Feels cursed. Probably just having a bad hair day.', 8, 0, 5)
 
 registry["nothing"] = Item('', '', 0, 0, 0)
 
@@ -100,23 +117,24 @@ print (possibleRooms)"""
 
 
 possibleMonsters = [auaojaj, bob, medusa, lizard]
-charInventory.append('knife')
+charInventory.append("knife")
 monstersInFight = []
 gameWon = 0
-possibleLoot = [bagel, hammer]
+possibleLoot = [registry["bagel"], registry["hammer"], registry["amulet"], registry["knife"]]
 magicNumber = 0
 
 while True:
 	userTurn = input("What do you do? \n")
 	dangerRating = dangerRating + 1
-	print (dangerRating)
+	"""print (dangerRating)"""
 	monsterMatch = random.randint(1, 10)
 	characterAttack = characterBaseAttack + weaponDamage
 	currentHealth = 30 - damageTaken + healthMods
+	currentWeapon = charInventory.pop(0)
+	charInventory.append(currentWeapon)
+	weaponDamage = registry[currentWeapon].damage
+	characterAttack = characterBaseAttack + weaponDamage
 	
-
-	
-
 	if monsterMatch <= dangerRating and fightTrue == 0:
 		monsterFound = possibleMonsters.pop(random.randint(0, 1))
 		monstersInFight.append(monsterFound)
@@ -124,30 +142,40 @@ while True:
 		print ("You found a monster! Lucky you, it is a ")
 		print (monsterFound.name)
 		monsterHealth = monsterFound.health
-		print (monsterHealth)
+		"""print (monsterHealth)"""
 		possibleDamage = monsterHealth + 1
 	if (fightTrue == 1):
 		dangerRating = 0
 	if (userTurn == "MF"):
 		if (currentRoomNumber <= 19):
 			currentRoomNumber = currentRoomNumber + 5
-			"""roomsLayout.remove(currentRoomNumber)
-			roomsLayout.insert(currentRoomNumber, nextRoom)"""
+			roomFound = (roomDescriptions.pop(random.randint(1, 10)))
+			roomDescriptions.append(roomFound)
+			print (roomFound)
 		else:
 			print ("You can not move in that direction")
 	elif (userTurn == "MB"):
 		if (currentRoomNumber >= 5):
 			currentRoomNumber = currentRoomNumber - 5
+			roomFound = (roomDescriptions.pop(random.randint(1, 10)))
+			roomDescriptions.append(roomFound)
+			print (roomFound)
 		else:
 			print ("You can not move in that direction")
 	elif (userTurn == "ML"):
 		if (currentRoomNumber != (0 or 5 or 10 or 15 or 20)):
 			currentRoomNumber = currentRoomNumber - 1
+			roomFound = (roomDescriptions.pop(random.randint(1, 10)))
+			roomDescriptions.append(roomFound)
+			print (roomFound)
 		else:
 			print ("You can not move in that direction")
 	elif (userTurn == "MR"):
 		if (currentRoomNumber != (4 or 9 or 14 or 19 or 24)):
 			currentRoomNumber = currentRoomNumber + 1
+			roomFound = (roomDescriptions.pop(random.randint(1, 10)))
+			roomDescriptions.append(roomFound)
+			print (roomFound)
 		else:
 			print ("You can not move in that direction")
 	elif (userTurn == "Health"):
@@ -161,9 +189,17 @@ while True:
 			theItem = registry["nothing"]
 		print (theItem.description)
 	elif (userTurn == "PickUp"):
-		print ()
-		damageTaken = damageTaken + 9001 
-		"""because its over 9000"""
+		pickedUp = input("Unless you are grabbing air (which you can if you want), please specify what you are grabbing \n")
+		if (pickedUp in roomLoot and pickedUp != "bagel"):
+			charInventory = []
+			charInventory.append(pickedUp)
+		elif (pickedUp == "air"):
+			print ("I mean, I did say you could... smart ass.")
+		elif (pickedUp == "bagel"):
+			damageTaken = damageTaken - 3
+			print ("So, you like pick up and eat the bagel. It heals you. It was not tasty.")
+		else:
+			print ("That Item is not in your current room. Basically you do not have 20 meter arms.")
 	elif ((userTurn == "Retreat") and (fightTrue == 1)):
 		print ("WOW. Coward. Anyways you run away, and take a slight bit of dmg")
 		damageTaken = damageTaken + (random.randint(0, 5))
@@ -171,11 +207,14 @@ while True:
 		for x in range(0, characterAttack):
 			damageDone = random.randint(0, possibleDamage)
 			if (damageDone >= monsterHealth):
-				itemDropped = possibleLoot.pop(random.randint(0, len(possibleLoot)))
+				trueLoot = len(possibleLoot) - 1
+				itemDropped = (possibleLoot.pop(random.randint(0, trueLoot))).name
+				roomLoot.append(registry[itemDropped].name)
 				fightTrue = 0
 				monstersKilled = monstersKilled + 1
+				"""print (monstersInFight)"""
 				possibleMonsters.append(monstersInFight.pop(0))
-				print ("Nice. You killed the poor defenseless monster. I suggest you loot it's innocent corpse.")
+				print ("Nice. You killed the poor defenseless monster. I suggest you steal from it's innocent corpse.")
 				print ("Hey it dropped an item!")
 				print (itemDropped)
 			else:
@@ -194,6 +233,10 @@ while True:
 		print ("You currently have this stuff (down)")
 		print (charInventory)
 		if (fightTrue == 1):
+			print ("Here are some of those monster stats.")
+			print ("Like the health, which is below")
+			print (monsterHealth)
+			print ("And the description, which is")
 			print (monsterFound.description)
 	elif (userTurn == "Commands"):
 		print ("Commands, MoveForward, MoveBack, MoveLeft, MoveRight, Attack, Retreat, Inspect, LookAround, PickUp \n")
