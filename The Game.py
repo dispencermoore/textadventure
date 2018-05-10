@@ -206,7 +206,7 @@ while True:
 	elif ((userTurn == "Attack") and (fightTrue == 1)):
 		for x in range(0, characterAttack):
 			damageDone = random.randint(0, possibleDamage)
-			if (damageDone >= monsterHealth):
+			if (damageDone >= monsterHealth and fightTrue == 1):
 				trueLoot = len(possibleLoot) - 1
 				itemDropped = (possibleLoot.pop(random.randint(0, trueLoot))).name
 				roomLoot.append(registry[itemDropped].name)
