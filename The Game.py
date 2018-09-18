@@ -135,7 +135,7 @@ while True:
 	charInventory.append(currentWeapon)
 	weaponDamage = registry[currentWeapon].damage
 	characterAttack = characterBaseAttack + weaponDamage
-	print (currentRoomNumber)
+	"""print (currentRoomNumber)"""
 	theRooms = len(roomDescriptions)
 	
 	if monsterMatch <= dangerRating and fightTrue == 0:
