@@ -161,6 +161,7 @@ while True:
 		if (currentRoomNumber >= 5):
 			currentRoomNumber = currentRoomNumber - 5
 			roomFound = (roomDescriptions.pop(random.randint(0, theRooms)))
+
 			roomDescriptions.append(roomFound)
 			print (roomFound)
 		else:
@@ -206,6 +207,7 @@ while True:
 	elif ((userTurn == "retreat") and (fightTrue == 1)):
 		print ("WOW. Coward. Anyways you run away, and take a slight bit of dmg")
 		damageTaken = damageTaken + (random.randint(0, 5))
+		fightTrue == 0
 	elif ((userTurn == "attack") and (fightTrue == 1)):
 		for x in range(0, characterAttack):
 			damageDone = random.randint(0, possibleDamage)
