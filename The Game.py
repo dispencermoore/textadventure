@@ -191,7 +191,7 @@ while True:
 		else:
 			print ("Probably misspelled the item. Remember caps and correct spelling!")
 			theItem = registry["nothing"]
-		print (theItem.description)
+			print (theItem.description)
 	elif (userTurn == "pickup" or userTurn == "pu"):
 		pickedUp = input("Unless you are grabbing air (which you can if you want), please specify what you are grabbing \n")
 		if (pickedUp in roomLoot and pickedUp != "bagel"):
@@ -208,6 +208,7 @@ while True:
 		print ("WOW. Coward. Anyways you run away, and take a slight bit of dmg")
 		damageTaken = damageTaken + (random.randint(0, 5))
 		fightTrue == 0
+		monstersInFight = []
 	elif ((userTurn == "attack") and (fightTrue == 1)):
 		for x in range(0, characterAttack):
 			damageDone = random.randint(0, possibleDamage)
