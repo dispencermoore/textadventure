@@ -198,7 +198,7 @@ while True:
 			charInventory = []
 			charInventory.append(pickedUp)
 		elif (pickedUp == "air"):
-			print ("I mean, I did say you could... smart ass.")
+			print ("I mean, I did say you could... smartass.")
 		elif (pickedUp == "bagel"):
 			damageTaken = damageTaken - 3
 			print ("So, you like pick up and eat the bagel. It heals you. It was not tasty.")
@@ -249,7 +249,7 @@ while True:
 	else:
 		print ("Maybe a typo? Or wrong command? Or stupidity? Either way please try again! And if you're trying to fight something, like a monster, then you obviously can't do that.")
 	if (currentHealth <= 0):
-		print ("gg you lost ur mom gey")
+		print ("gg you lost")
 		userEndTurn = input("Do you want to try again? ")
 		if (userEndTurn == "no u"):
 			print ("Congratulations edgelord! You win!")
